@@ -15,11 +15,11 @@ const SideHero = () => {
         </div>
       </div>
       <div className="w-full relative bg-[#F9CE7D] h-[65%]">
-        <div className="rotate-180 absolute top-35 right-30 text-[#F4F1E8]">
+        <div className="rotate-170 absolute top-35 right-28 text-[#F4F1E8]">
           <IoArrowRedoSharp size={150}/>
         </div>
         <Image
-          className="absolute z-1 top-3 right-20 -rotate-10 hover:scale-110 transition-all"
+          className="absolute z-1 top-3 right-20 -rotate-10 hover:scale-103 transition-all"
           src={"/heroBefore.png"}
           height={20}
           width={90}
@@ -27,7 +27,7 @@ const SideHero = () => {
         />
         <Image
           src={"/heroTrans1.png"}
-          className="absolute -top-6 -left-30 rotate-20 hover:scale-110 transition-all"
+          className="absolute -top-6 -left-30 rotate-20 hover:scale-102 transition-all"
           width={380}
           height={10}
           alt="Hero"

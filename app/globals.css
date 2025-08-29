@@ -37,3 +37,13 @@ body {
 .font-roboto {
   font-family: var(--font-roboto);
 }
+
+@layer base {
+  ::selection {
+    @apply bg-orange-500 text-white; /* Tailwind classes */
+  }
+
+  ::-moz-selection {
+    @apply bg-orange-500 text-white; /* For Firefox */
+  }
+}
