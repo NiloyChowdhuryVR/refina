@@ -1,0 +1,110 @@
+"use client";
+
+import { useState } from "react";
+
+export default function Home() {
+  const [imgInput, setImgInput] = useState("");
+  const [prompt, setPrompt] = useState("");
+  const [responseText, setResponseText] = useState("");
+  const [images, setImages] = useState<string[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setResponseText("");
+    setImages([]);
+
+    const res = await fetch("/api/analyze", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt, imgInput }),
+    });
+
+    const data = await res.json();
+    console.log("API Response:", data);
+
+    const msg = data.choices[0].message;
+    setResponseText(msg.content);
+
+    if (msg.images && msg.images.length > 0) {
+      const urls = msg.images
+        .map((img: any) => img.image_url?.url)
+        .filter(Boolean);
+      setImages(urls);
+    }
+
+    setLoading(false);
+  };
+
+  const handleDownload = (url: string, index: number) => {
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `generated-image-${index + 1}.png`;
+    a.click();
+  };
+
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
+      <div className="bg-white shadow-lg rounded-2xl p-6 max-w-2xl w-full">
+        <h1 className="text-xl font-bold mb-4 text-center">
+          🖼 Image → Image with Prompt
+        </h1>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            type="text"
+            placeholder="Enter Image URL"
+            value={imgInput}
+            onChange={(e) => setImgInput(e.target.value)}
+            className="w-full border rounded-lg p-2"
+            required
+          />
+
+          <textarea
+            placeholder="Enter your prompt"
+            value={prompt}
+            onChange={(e) => setPrompt(e.target.value)}
+            className="w-full border rounded-lg p-2 h-24"
+            required
+          />
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-semibold"
+          >
+            {loading ? "Processing..." : "Generate"}
+          </button>
+        </form>
+
+        {responseText && (
+          <div className="mt-4 p-3 bg-gray-50 rounded-lg text-sm">
+            <strong>AI Response:</strong>
+            <p>{responseText}</p>
+          </div>
+        )}
+
+        {images.length > 0 && (
+          <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {images.map((url, i) => (
+              <div key={i} className="flex flex-col items-center">
+                <img
+                  src={url}
+                  alt={`AI generated ${i + 1}`}
+                  className="w-full rounded-lg border"
+                />
+                <button
+                  onClick={() => handleDownload(url, i)}
+                  className="mt-2 bg-green-600 hover:bg-green-700 text-white py-1 px-3 rounded-lg text-sm"
+                >
+                  Download
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
