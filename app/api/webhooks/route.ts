@@ -56,7 +56,7 @@ export async function POST(req: NextRequest) {
       case 'user.updated': {
         const data = evt.data as any;
         await prisma.user.update({
-          where: { id: clerkUserId },
+          where: { clerkId: clerkUserId },
           data: {
             email: data.email_addresses?.[0]?.email_address || '',
             name: `${data.first_name || ''} ${data.last_name || ''}`.trim() || null,
@@ -66,8 +66,8 @@ export async function POST(req: NextRequest) {
       }
 
       case 'user.deleted': {
-        await prisma.user.delete({
-          where: { id: clerkUserId },
+        await prisma.user.deleteMany({
+          where: { clerkId: clerkUserId },
         });
         break;
       }

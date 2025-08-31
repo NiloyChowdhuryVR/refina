@@ -1,3 +1,6 @@
+"use client"
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import Link from "next/link";
 import React from "react";
 
 const Navbar = () => {
@@ -5,7 +8,7 @@ const Navbar = () => {
     <div className="w-full h-15 bg-[#F4F1E8] flex justify-center items-center">
       <div className="w-[90%] py-3 flex justify-between items-center">
         <div className="uppercase font-semibold font-bebas tracking-widest text-2xl ">
-          <h1 className="cursor-pointer">refina.</h1>
+          <Link href={"/"} className="cursor-pointer">refina.</Link>
         </div>
         <div className="flex justify-center items-center gap-3">
           <p className=" cursor-pointer">Camera</p>
@@ -14,7 +17,18 @@ const Navbar = () => {
           <p className=" cursor-pointer">FAQ</p>
         </div>
         <div>
-            <p className="cursor-pointer">Global Links</p>
+          <div className="cursor-pointer">
+            <SignedIn>
+              <UserButton showName/>
+            </SignedIn>
+            <SignedOut>
+              <Link href={"/sign-in"}>
+                <button className="cursor-pointer bg-black w-25 h-8 text-white">
+                  Sign In
+                </button>
+              </Link>
+            </SignedOut>
+          </div>
         </div>
       </div>
     </div>

@@ -50,10 +50,13 @@ const MainHero = () => {
           </div>
         </div>
         <div className="flex gap-5">
-          <button className="bg-black text-white px-5 py-1 hover:bg-transparent border-black border-2 hover:text-black cursor-pointer text-sm font-semibold font-roboto">
-            <Link href={"/generate"}>Get Started</Link>
-          </button>
-          <button className="border-black border-2 hover:bg-black hover:text-white text-black px-5 py-1 cursor-pointer text-sm font-semibold font-roboto">
+          <Link
+            href="/generate"
+            className="bg-orange-500 text-white px-5 py-2 hover:bg-transparent border-orange-500 border-2 hover:text-orange-500 cursor-pointer text-sm font-semibold font-roboto inline-block text-center"
+          >
+            Get Started
+          </Link>
+          <button className="border-black border-2 hover:bg-black hover:text-white text-black px-5 py-2 cursor-pointer text-sm font-semibold font-roboto">
             Watch Tutorial
           </button>
         </div>
