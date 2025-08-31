@@ -19,7 +19,7 @@ export default function GeneratePage() {
     undefined
   );
   const [imageUrl, setImageUrl] = useState("");
-  const [numberSelected,setNumberSelected] = useState(1)
+  const [numberSelected, setNumberSelected] = useState(1);
   const [modelBarOpen, setModelBarOpen] = useState(false);
   const [prompt, setPrompt] = useState("");
   const [images, setImages] = useState<string[]>([]);
@@ -40,6 +40,20 @@ export default function GeneratePage() {
     );
   }
 
+  const handleImageClick = (urlProp:string) =>{
+    window.open(urlProp, "_blank");
+  }
+
+  const handleNumberSelect = (number:number)=>{
+    if(number === 1 || number === 2){
+      setNumberSelected(number)
+      return
+    }
+    else{
+      toast.error("Only for Pro Users")
+    }
+  }
+
   // 📤 Handle form submit
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -56,18 +70,19 @@ export default function GeneratePage() {
     setImages([]);
 
     try {
-    const selectedNumberPrompt =
-      numberOfImages.find((n) => n.number === numberSelected)?.numberPrompt;
+      const selectedNumberPrompt = numberOfImages.find(
+        (n) => n.number === numberSelected
+      )?.numberPrompt;
 
-    const res = await fetch("/api/analyze", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        prompt: `${prompt}\n\n${selectedNumberPrompt}`,
-        imgInput: imageUrl,
-      }),
-    });
-      console.log(selectedNumberPrompt)
+      const res = await fetch("/api/analyze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          prompt: `${prompt}\n\n${selectedNumberPrompt}`,
+          imgInput: imageUrl,
+        }),
+      });
+      console.log(selectedNumberPrompt);
       const data = await res.json();
       console.log("API Response:", data);
 
@@ -107,15 +122,18 @@ export default function GeneratePage() {
 
   return (
     <div className="h-[calc(100vh-3.75rem)] w-full flex justify-center items-center">
-      <div className="bg-blue-500 w-[18%] h-full flex items-center flex-col relative">
+      <div className="bg-[#F4F1E8] border-r-1 border-t-1 border-[#4c3122] pt-10 w-[18%] h-full flex items-center flex-col relative">
+        <div className="mb-2 font-roboto text-xs">Select Number of Images</div>
         <div
           onClick={() => setModelBarOpen(!modelBarOpen)}
           className="w-[90%] h-10 flex justify-center items-center cursor-pointer rounded-md select-none bg-[#4c3122] hover:bg-[#3e2518]"
         >
-          <h3 className="text-[#F4F1E8] font-semibold font-roboto tracking-wider">{selectedModel? selectedModel.name : "Choose Model"}</h3>
+          <h3 className="text-[#F4F1E8] font-semibold font-roboto tracking-wider">
+            {selectedModel ? selectedModel.name : "Choose Model"}
+          </h3>
         </div>
         {modelBarOpen && (
-          <div className="absolute z-10 max-h-full overflow-y-auto hide-scrollbar w-full -right-[100%] top-0 bg-amber-400">
+          <div className="absolute z-10 max-h-full overflow-y-auto hide-scrollbar w-full -right-[100%] top-0 bg-[#4c3122]">
             {models.map((model) => (
               <Models
                 selectedModel={selectedModel}
@@ -127,12 +145,24 @@ export default function GeneratePage() {
             ))}
           </div>
         )}
-        <div className="flex justify-center items-center w-[90%] gap-5 my-5">
-          {numberOfImages.map((numberofImage)=>(
-            <div key={numberofImage.number} onClick={()=>setNumberSelected(numberofImage.number)} className={`border-[#4c3122] border-2 w-7 h-7 flex justify-center items-center text-[#4c3122] font-roboto font-semibold cursor-pointer ${numberSelected===numberofImage.number?"bg-[#4c3122] text-[#F4F1E8]":""} `}>
+        <div className="mt-5 font-roboto text-xs">Select Number of Images</div>
+        <div className="flex justify-center items-center w-[90%] gap-5 my-3">
+          {numberOfImages.map((numberofImage) => (
+            <div
+              key={numberofImage.number}
+              onClick={() => handleNumberSelect(numberofImage.number)}
+              className={`border-[#4c3122] border-2 w-7 h-7 flex justify-center items-center text-[#4c3122] font-roboto font-semibold cursor-pointer ${
+                numberSelected === numberofImage.number
+                  ? "bg-[#4c3122] text-[#F4F1E8]"
+                  : ""
+              } `}
+            >
               {numberofImage.number}
             </div>
           ))}
+        </div>
+        <div className="w-[90%]">
+          <h1 className="text-xs font-roboto  mt-10">*Generated images are not stored on our servers for privacy.<br/> Please make sure to download your images immediately after generation to avoid losing access to them.</h1>
         </div>
       </div>
       {/* ////////////////////////////////////////////////////////////////////////INPUT FIELD/////////////////////////////////////////////////////////////////////////////////////////// */}
@@ -226,13 +256,8 @@ export default function GeneratePage() {
 
               {/* Generated Images */}
             </div>
-          ):
-          
-          
-          
-          
-          
-          <div className="bg-[#4c3122] shadow-lg rounded-lg p-6 w-full flex gap-6 justify-between items-center">
+          ) : (
+            <div className="bg-[#4c3122] shadow-lg rounded-lg p-6 w-full flex gap-6 justify-between items-center">
               <h1 className="text-xl text-[#F4F1E8] font-bold font-roboto text-center">
                 Generate Another Image
               </h1>
@@ -251,12 +276,12 @@ export default function GeneratePage() {
               /> */}
 
                 {/* Upload */}
-                  
+
                 <UploadButton
                   className=""
                   appearance={{
-                    container: { },
-                    allowedContent: { display:"none" },
+                    container: {},
+                    allowedContent: { display: "none" },
                     button: {
                       width: "150px",
                       height: "35px",
@@ -304,18 +329,13 @@ export default function GeneratePage() {
                 </button>
               </form>
             </div>
-          
-          
-          
-          
-          
-          
-          }
+          )}
           {images.length > 0 && (
-            <div className="mt-4 bg-orange-500 w-full h-full flex gap-4 overflow-y-auto">
+            <div className="mt-4 w-full h-full flex gap-4 overflow-y-auto">
               {images.map((url, i) => (
                 <div key={i} className="flex flex-col items-center relative">
                   <Image
+                  onClick={()=>handleImageClick(url)}
                     src={url}
                     alt={`AI generated ${i + 1}`}
                     width={200}
@@ -326,7 +346,7 @@ export default function GeneratePage() {
                     onClick={() => handleDownload(url, i)}
                     className="bg-black/50 hover:bg-black text-white right-1 top-1 cursor-pointer rounded-[50%] text-sm absolute w-8 h-8 flex justify-center items-center "
                   >
-                    <BiDownload/>
+                    <BiDownload />
                   </button>
                 </div>
               ))}

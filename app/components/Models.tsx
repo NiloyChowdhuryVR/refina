@@ -16,7 +16,7 @@ const Models : React.FC<ModelProps> = ({model,selectedModel,setSelectedModel,set
   }
     
   return (
-    <div className={`bg-red-400 m-2 p-2 rounded-md cursor-pointer ${selectedModel===model?"bg-red-800":""}`} onClick={()=>handleClick()}>
+    <div className={`bg-[#F4F1E8] hover:bg-[#d6d1c4] m-2 p-2 rounded-md cursor-pointer ${selectedModel===model?"bg-orange-100":""}`} onClick={()=>handleClick()}>
         <h3 className='font-bebas font-semibold tracking-wider text-xl'>{model.name}</h3>
         <p className='font-roboto text-sm'>{model.info}</p>
     </div>
