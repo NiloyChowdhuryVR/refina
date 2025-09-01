@@ -121,19 +121,19 @@ export default function GeneratePage() {
   };
 
   return (
-    <div className="h-[calc(100vh-3.75rem)] w-full flex justify-center items-center">
-      <div className="bg-[#F4F1E8] border-r-1 border-t-1 border-[#4c3122] pt-10 w-[18%] h-full flex items-center flex-col relative">
-        <div className="mb-2 font-roboto text-xs">Select Number of Images</div>
+    <div className="h-[calc(100vh-3.75rem)] w-full flex flex-col md:flex-row md:justify-center items-center overflow-x-hidden bg-[#F4F1E8]">
+      <div className=" md:border-r-1 md:border-t-1 border-[#4c3122] md:pt-10 md:w-[18%] w-full md:h-full flex  items-center flex-col relative">
+        <div className="mb-2 font-roboto text-xs hidden md:block">Select The Model</div>
         <div
           onClick={() => setModelBarOpen(!modelBarOpen)}
           className="w-[90%] h-10 flex justify-center items-center cursor-pointer rounded-md select-none bg-[#4c3122] hover:bg-[#3e2518]"
         >
-          <h3 className="text-[#F4F1E8] font-semibold font-roboto tracking-wider">
+          <h3 className="text-[#F4F1E8] text-[1rem] font-semibold font-roboto tracking-wider">
             {selectedModel ? selectedModel.name : "Choose Model"}
           </h3>
         </div>
         {modelBarOpen && (
-          <div className="absolute z-10 max-h-full overflow-y-auto hide-scrollbar w-full -right-[100%] top-0 bg-[#4c3122]">
+          <div className="absolute z-10  md:max-h-full md:overflow-y-auto hide-scrollbar w-[90%] md:w-full md:top-0 md:-right-[100%] top-[100%] bg-[#4c3122]">
             {models.map((model) => (
               <Models
                 selectedModel={selectedModel}
@@ -145,7 +145,7 @@ export default function GeneratePage() {
             ))}
           </div>
         )}
-        <div className="mt-5 font-roboto text-xs">Select Number of Images</div>
+        <div className="mt-5 font-roboto text-xs hidden md:block">Select Number of Images</div>
         <div className="flex justify-center items-center w-[90%] gap-5 my-3">
           {numberOfImages.map((numberofImage) => (
             <div
@@ -162,7 +162,7 @@ export default function GeneratePage() {
           ))}
         </div>
         <div className="w-[90%]">
-          <h1 className="text-xs font-roboto  mt-10">*Generated images are not stored on our servers for privacy.<br/> Please make sure to download your images immediately after generation to avoid losing access to them.</h1>
+          <h1 className="text-xs hidden md:block font-roboto  mt-10">*Generated images are not stored on our servers for privacy.<br/> Please make sure to download your images immediately after generation to avoid losing access to them.</h1>
         </div>
       </div>
       {/* ////////////////////////////////////////////////////////////////////////INPUT FIELD/////////////////////////////////////////////////////////////////////////////////////////// */}

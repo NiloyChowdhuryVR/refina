@@ -4,7 +4,9 @@ import UpperHeroContainer from "./UpperHeroContainer";
 
 const Hero = () => {
   return (
-    <div className="h-[calc(100vh-3.75rem)] w-full bg-[#F4F1E8] flex flex-col justify-center items-center">
+    // removed justify-center below 
+    <div className="h-[calc(100vh-3.75rem)] w-full bg-[#F4F1E8] flex flex-col 
+     items-center overflow-x-hidden">
       <UpperHeroContainer />
       <BottomHero />
     </div>

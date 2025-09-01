@@ -10,7 +10,7 @@ const Navbar = () => {
         <div className="uppercase font-semibold font-bebas tracking-widest text-2xl ">
           <Link href={"/"} className="cursor-pointer">refina.</Link>
         </div>
-        <div className="flex justify-center items-center gap-3">
+        <div className="hidden lg:flex justify-center items-center gap-3">
           <p className=" cursor-pointer">Camera</p>
           <p className=" cursor-pointer">Films</p>
           <p className=" cursor-pointer">Printers</p>

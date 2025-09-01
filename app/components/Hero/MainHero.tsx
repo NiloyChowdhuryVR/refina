@@ -6,7 +6,7 @@ import Link from "next/link";
 
 const MainHero = () => {
   return (
-    <div className="relative w-full max-w-220 h-full  border border-gray-400">
+    <div className="relative w-full max-w-220 pb-10 lg:pb-20 border border-gray-400">
       {/* Corner accents */}
       {/* Top-left */}
       <div className="absolute top-0 left-0 w-8 h-8 border-t-4 border-l-4 border-gray-800"></div>
@@ -20,7 +20,7 @@ const MainHero = () => {
       {/* Content inside */}
       <div className="flex flex-col gap-5 pl-[5%] pt-[5%] h-full">
         <div>
-          <h1 className="text-[7rem] leading-none font-bebas font-bold">
+          <h1 className="text-[5.6rem] lg:text-[7rem] leading-none font-bebas font-bold">
             <span className="align-middle inline-block">
               <FaCameraRetro className="w-[1em] h-[1em] inline-block mr-5" />
             </span>
@@ -37,7 +37,7 @@ const MainHero = () => {
               </p>
             </div>
           </div>
-          <div className="flex justify-center items-center gap-4">
+          <div className="hidden lg:flex justify-center items-center gap-4">
             <GoGraph size={100} />
             <div>
               <h3 className="text-lg font-roboto font-semibold">

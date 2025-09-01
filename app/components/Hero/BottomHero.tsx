@@ -9,8 +9,8 @@ import { FiShoppingCart } from "react-icons/fi";
 
 const BottomHero = () => {
   return (
-    <div className="h-45 w-[90%] flex justify-between">
-      <div className="flex justify-center items-center h-full w-80">
+    <div className="gap-7 lg:gap-0 py-10 lg:py-0 lg:h-45 w-[90%] flex justify-between items-center flex-col lg:flex-row">
+      <div className="flex justify-center flex-col gap-3 lg:gap-0 lg:flex-row items-center h-full w-80 text-center lg:text-start">
         <CiCamera size={40} className="mr-5"/>
         <div>
           <h2 className="font-semibold font-roboto text-lg">Perfect Product Shots</h2>
@@ -19,7 +19,7 @@ const BottomHero = () => {
           </p>
         </div>
       </div>
-      <div className="flex justify-center items-center h-full w-80">
+      <div className="flex justify-center items-center flex-col lg:flex-row gap-3 lg:gap-0 text-center lg:text-start h-full w-80">
         <CiShoppingTag size={40} className="mr-5"/>
         <div>
           <h2 className="font-semibold font-roboto text-lg">Offer-Ready Images</h2>
@@ -28,7 +28,7 @@ const BottomHero = () => {
           </p>
         </div>
       </div>
-      <div className="flex justify-center items-center h-full w-80">
+      <div className="flex justify-center items-center flex-col lg:flex-row gap-3 lg:gap-0 text-center lg:text-start h-full w-80">
         <AiOutlineScissor size={40} className="mr-5"/>
         <div>
           <h2 className="font-semibold font-roboto text-lg">Background Magic</h2>
@@ -37,7 +37,7 @@ const BottomHero = () => {
           </p>
         </div>
       </div>
-      <div className="flex justify-center items-center h-full w-80">
+      <div className="flex justify-center items-center flex-col lg:flex-row gap-3 lg:gap-0 text-center lg:text-start h-full w-80">
         <FiShoppingCart size={40} className="mr-5"/>
         <div>
           <h2 className="font-semibold font-roboto text-lg">Ad-Ready Visuals</h2>
